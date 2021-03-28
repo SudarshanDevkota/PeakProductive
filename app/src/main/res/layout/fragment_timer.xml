@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.TimerFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/timer_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btn_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reset_text"
+            app:cornerRadius="5dp"
+
+            app:layout_constraintBaseline_toBaselineOf="@+id/btn_start"
+            app:layout_constraintEnd_toEndOf="@+id/progressBar" />
+
+        <Button
+            android:id="@+id/btn_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/start_text"
+            app:cornerRadius="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/progressBar"
+            app:layout_constraintTop_toBottomOf="@+id/progressBar"
+            app:layout_constraintVertical_bias="0.201" />
+
+        <TextView
+            android:id="@+id/time_left"
+            android:layout_width="115dp"
+            android:layout_height="83dp"
+            android:fontFamily="@font/anton"
+            android:textAlignment="center"
+            android:textColor="@color/blue_dark"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+            app:layout_constraintEnd_toEndOf="@+id/progressBar"
+            app:layout_constraintStart_toStartOf="@+id/progressBar"
+            app:layout_constraintTop_toTopOf="@+id/progressBar" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:indeterminateOnly="false"
+
+            android:progressDrawable="@drawable/circular_progress_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.276" />
+
+        <Button
+            android:id="@+id/btn_relax"
+            android:layout_width="142dp"
+            android:layout_height="62dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/relax_text"
+            app:cornerRadius="5dp"
+            app:layout_constraintEnd_toEndOf="@+id/btn_reset"
+            app:layout_constraintStart_toStartOf="@+id/btn_start"
+            app:layout_constraintTop_toBottomOf="@+id/btn_start" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

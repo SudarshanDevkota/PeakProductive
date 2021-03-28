@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Peak Productive</string>
+    <string name="nav_card">Flash Card</string>
+    <string name="nav_task">Tasks</string>
+    <string name="nav_timer">Pomodoro</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="start_text">Start</string>
+    <string name="pause_text">Pause</string>
+    <string name="reset_text">Reset</string>
+    <string name="relax_text">Relax</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+</resources>

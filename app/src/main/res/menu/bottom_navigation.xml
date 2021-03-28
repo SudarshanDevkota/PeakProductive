@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/nav_card"
+        android:id="@+id/tab_flashcard"
+        android:icon="@drawable/ic_baseline_note_24"/>
+    <item android:title="@string/nav_task"
+        android:id="@+id/tab_tasks"
+        android:icon="@drawable/ic_baseline_list_alt_24"/>
+    <item
+        android:icon="@drawable/ic_baseline_timer_24"
+        android:id="@+id/tab_timer"
+        android:title="@string/nav_timer" />
+</menu>
