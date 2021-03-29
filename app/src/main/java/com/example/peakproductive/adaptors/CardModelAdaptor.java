@@ -34,6 +34,9 @@ public class CardModelAdaptor extends RecyclerView.Adapter<CardModelAdaptor.View
         this.context= context;
 
     }
+    public Context getContext(){
+        return context;
+    }
 
     @NonNull
     @Override

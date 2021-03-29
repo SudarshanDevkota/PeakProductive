@@ -80,7 +80,9 @@ public class CardFactory {
     }
 
     public void deleteCard(int id) {
-        db.delete(CardDatabaseHelper.CARD_TABLE, CardDatabaseHelper.COLUMN_CARD_ID + " =?", new String[]{String.valueOf(id)});
+        db = database.getWritableDatabase();
+        db.delete(CardDatabaseHelper.CARD_TABLE, CardDatabaseHelper.COLUMN_CARD_ID + "=?", new String[]{String.valueOf(id)});
+        db.close();
     }
 
     private ContentValues getContentValues(String title, String content, String tag) {
