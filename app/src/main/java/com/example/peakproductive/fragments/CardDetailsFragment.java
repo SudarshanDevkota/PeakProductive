@@ -1,6 +1,6 @@
 package com.example.peakproductive.fragments;
 
-import android.graphics.ColorSpace;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 
 import com.example.peakproductive.R;
-import com.example.peakproductive.database.CardDatabaseHelper;
+
 import com.example.peakproductive.models.CardFactory;
 import com.example.peakproductive.models.CardModel;
 
@@ -30,6 +30,8 @@ public class CardDetailsFragment extends Fragment {
     private Button savebutton;
     private static int current=0;
     private CardModel cardModel;
+    private CardFactory factory;
+
 
 
     //implementation pending
@@ -50,14 +52,7 @@ public class CardDetailsFragment extends Fragment {
 
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        UUID cardId = (UUID)getArguments().getSerializable(CARD_ID_ARGS);
-//        cardModel= CardFragment.getCard(cardId);
 
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,8 +66,8 @@ public class CardDetailsFragment extends Fragment {
 
         savebutton.setOnClickListener(save);
 
-//       title.setText(cardModel.getCardTitle());
-//       description.setText(cardModel.getCardContent());
+        factory = new CardFactory(getActivity());
+
 
 
         return view;
@@ -82,28 +77,39 @@ public class CardDetailsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if(current ==1){
-            CardModel model = (CardModel) getArguments().getSerializable(FRAGMENT_ARG);
-            title.setText(model.getCardTitle());
-            description.setText(model.getCardContent());
-            tag.setText(model.getCardTag());
+             cardModel = (CardModel) getArguments().getSerializable(FRAGMENT_ARG);
+            title.setText(cardModel.getCardTitle());
+            description.setText(cardModel.getCardContent());
+            tag.setText(cardModel.getCardTag());
+            savebutton.setText(R.string.update_text);
         }
     }
 
     View.OnClickListener save = v -> {
         //implementation for the save button of the edit card fragment
 
-        CardFactory factory = new CardFactory(getActivity());
+
         String heading = title.getText().toString();
         String content = description.getText().toString();
         String topic = tag.getText().toString();
+
+
         if (!heading.isEmpty() && !content.isEmpty()) {
-            factory.addCard(heading, content, topic);
-            Toast.makeText(getActivity(), "Additoon Successful", Toast.LENGTH_SHORT).show();
+            if(current == 0){
+                factory.addCard(heading, content, topic);
+                Toast.makeText(getActivity(), "Additoon Successful", Toast.LENGTH_SHORT).show();
+
+            }else{
+                factory.updateCard(cardModel.getCardId(),heading,content,topic);
+            }
             getActivity().finish();
+
+
         } else
             Toast.makeText(getActivity(), "Cannot Add Empty Card", Toast.LENGTH_SHORT).show();
 
 
 
     };
+
 }

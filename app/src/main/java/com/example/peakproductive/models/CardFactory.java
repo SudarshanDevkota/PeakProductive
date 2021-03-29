@@ -72,12 +72,15 @@ public class CardFactory {
 
     }
 
-    public void updateCard(int id) {
-
+    public void updateCard(int id,String title, String content, String tag) {
+        ContentValues cv = getContentValues(title,content,tag);
+        db = database.getWritableDatabase();
+        db.update(CardDatabaseHelper.CARD_TABLE,cv,CardDatabaseHelper.COLUMN_CARD_ID + "=?", new String[]{String.valueOf(id)});
+        db.close();
     }
 
     public void deleteCard(int id) {
-        db.delete(CardDatabaseHelper.CARD_TABLE, CardDatabaseHelper.COLUMN_CARD_ID + "=?", new String[]{String.valueOf(id)});
+        db.delete(CardDatabaseHelper.CARD_TABLE, CardDatabaseHelper.COLUMN_CARD_ID + " =?", new String[]{String.valueOf(id)});
     }
 
     private ContentValues getContentValues(String title, String content, String tag) {
