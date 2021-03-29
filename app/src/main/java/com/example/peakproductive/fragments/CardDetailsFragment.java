@@ -1,7 +1,10 @@
 package com.example.peakproductive.fragments;
 
+import android.graphics.ColorSpace;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 
@@ -21,20 +24,29 @@ import com.example.peakproductive.models.CardModel;
 
 
 public class CardDetailsFragment extends Fragment {
-    private static final String CARD_ID_ARGS = "com.example.peakproductive.fragments.arg_crime_id";
+    private static final String FRAGMENT_ARG= "com.example.peakproductive.fragments.fragment_arg";
 
     private EditText title, description,tag;
     private Button savebutton;
+    private static int current=0;
     private CardModel cardModel;
 
 
     //implementation pending
-    public static CardDetailsFragment getNewInstance() {
+    public static CardDetailsFragment getNewInstance(CardModel model) {
         Bundle args = new Bundle();
+        current = 1;
+        args.putSerializable(FRAGMENT_ARG,model);
 
         CardDetailsFragment fragment = new CardDetailsFragment();
         fragment.setArguments(args);
         return fragment;
+
+    }
+    public static CardDetailsFragment getNewInstance() {
+        current =0;
+        CardDetailsFragment cardDetailsFragment = new CardDetailsFragment();
+        return  cardDetailsFragment;
 
     }
 
@@ -65,6 +77,18 @@ public class CardDetailsFragment extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if(current ==1){
+            CardModel model = (CardModel) getArguments().getSerializable(FRAGMENT_ARG);
+            title.setText(model.getCardTitle());
+            description.setText(model.getCardContent());
+            tag.setText(model.getCardTag());
+        }
+    }
+
     View.OnClickListener save = v -> {
         //implementation for the save button of the edit card fragment
 

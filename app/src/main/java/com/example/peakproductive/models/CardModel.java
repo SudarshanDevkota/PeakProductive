@@ -1,8 +1,9 @@
 package com.example.peakproductive.models;
 
 
+import java.io.Serializable;
 
-public class CardModel {
+public class CardModel implements Serializable {
     private int cardId;
     private String cardTitle;
     private String cardContent;

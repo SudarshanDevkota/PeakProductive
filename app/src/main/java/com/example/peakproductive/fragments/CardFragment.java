@@ -77,6 +77,8 @@ public class CardFragment extends Fragment  implements ItemClickInterface {
     @Override
     public void onItemClick(int position) {
         //implementation pending for the recycler view items
+        Intent intent = EditDetails.EditDetailIntent(getActivity(),cardList.get(position));
+        startActivity(intent);
 
     }
 
