@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.example.peakproductive.fragments.CardFragment;
 import com.example.peakproductive.fragments.TaskFragment;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private final Fragment cardFragment= new CardFragment();
     private final FragmentManager fragmentManager= getSupportFragmentManager();
     Fragment active=taskFragment;
+
 
 
     @Override

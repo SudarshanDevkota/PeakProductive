@@ -14,10 +14,15 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_height="60dp"
+            android:layout_margin="15dp"
+            android:text="@string/cardDetail_text"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/purple_dark"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edit_cardTitle"

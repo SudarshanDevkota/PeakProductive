@@ -18,7 +18,6 @@ import com.example.peakproductive.EditDetails;
 import com.example.peakproductive.R;
 import com.example.peakproductive.adaptors.CardModelAdaptor;
 import com.example.peakproductive.adaptors.ItemClickInterface;
-import com.example.peakproductive.database.CardDatabaseHelper;
 import com.example.peakproductive.models.CardFactory;
 import com.example.peakproductive.models.CardModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -46,7 +45,7 @@ public class CardFragment extends Fragment  implements ItemClickInterface {
         View view = inflater.inflate(R.layout.fragment_card, container, false);
         addbtn = view.findViewById(R.id.btn_addCard);
         addbtn.setOnClickListener(addCard);
-        recyclerView_card = view.findViewById(R.id.card_list);
+        recyclerView_card = view.findViewById(R.id.task_list);
         cardFactory = new CardFactory(getActivity());
         recyclerView_card.setLayoutManager(new LinearLayoutManager(getActivity()));
 
