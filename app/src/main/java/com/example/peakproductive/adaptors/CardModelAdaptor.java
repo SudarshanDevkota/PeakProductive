@@ -24,13 +24,13 @@ import java.util.ArrayList;
 public class CardModelAdaptor extends RecyclerView.Adapter<CardModelAdaptor.ViewHolder> {
     private static ArrayList<CardModel> cardList;
 
-    private ItemClickInterface itemClickInterface;
+
     private Context context;
 
 
-    public CardModelAdaptor(Context context, ArrayList<CardModel> cardList,ItemClickInterface itemClickInterface) {
+    public CardModelAdaptor(Context context, ArrayList<CardModel> cardList) {
         this.cardList = cardList;
-        this.itemClickInterface = itemClickInterface;
+
         this.context= context;
 
     }
@@ -78,13 +78,7 @@ public class CardModelAdaptor extends RecyclerView.Adapter<CardModelAdaptor.View
             titleView = itemView.findViewById(R.id.card_title);
             descriptionView = itemView.findViewById(R.id.card_description);
             tag = itemView.findViewById(R.id.card_tag);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    itemClickInterface.onItemClick(getAdapterPosition());
 
-                }
-            });
 
 
         }

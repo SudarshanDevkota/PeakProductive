@@ -27,7 +27,7 @@
                 android:layout_margin="5dp"
                 android:maxWidth="80dp"
                 android:text="Tag"
-                android:textColor="@color/green_dark"
+                android:textColor="@color/red_dark"
                 android:textStyle="bold" />
 
             <TextView
