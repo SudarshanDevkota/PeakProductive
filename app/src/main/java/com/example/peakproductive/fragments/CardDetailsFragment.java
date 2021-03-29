@@ -18,13 +18,13 @@ import android.widget.Toast;
 
 import com.example.peakproductive.R;
 
-import com.example.peakproductive.models.CardFactory;
+import com.example.peakproductive.utils.CardFactory;
 import com.example.peakproductive.models.CardModel;
 
 
 
 public class CardDetailsFragment extends Fragment {
-    private static final String FRAGMENT_ARG= "com.example.peakproductive.fragments.fragment_arg";
+    private static final String CARD_FRAGMENT_ARG= "com.example.peakproductive.fragments.card_fragment_arg";
 
     private EditText title, description,tag;
     private Button savebutton;
@@ -34,11 +34,11 @@ public class CardDetailsFragment extends Fragment {
 
 
 
-    //implementation pending
+
     public static CardDetailsFragment getNewInstance(CardModel model) {
         Bundle args = new Bundle();
         current = 1;
-        args.putSerializable(FRAGMENT_ARG,model);
+        args.putSerializable(CARD_FRAGMENT_ARG,model);
 
         CardDetailsFragment fragment = new CardDetailsFragment();
         fragment.setArguments(args);
@@ -77,7 +77,7 @@ public class CardDetailsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if(current ==1){
-             cardModel = (CardModel) getArguments().getSerializable(FRAGMENT_ARG);
+             cardModel = (CardModel) getArguments().getSerializable(CARD_FRAGMENT_ARG);
             title.setText(cardModel.getCardTitle());
             description.setText(cardModel.getCardContent());
             tag.setText(cardModel.getCardTag());

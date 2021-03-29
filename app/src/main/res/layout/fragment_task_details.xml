@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.TaskDetailsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:text="@string/taskDetail_text"
+            android:textAlignment="center"
+            android:textColor="@color/purple_dark"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edit_task_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:ems="10"
+            android:hint="Task"
+            android:inputType="textPersonName"
+            android:maxHeight="60dp"
+            android:padding="5dp"
+            android:scrollbars="vertical" />
+
+        <EditText
+            android:id="@+id/edit_taskCatagory"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:ems="10"
+            android:hint="Catagory"
+            android:inputType="textPersonName"
+            android:padding="5dp" />
+
+        <Button
+            android:id="@+id/btn_addUpdate_task"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:text="@string/add_text"
+            app:cornerRadius="10dp" />
+    </LinearLayout>
+</FrameLayout>

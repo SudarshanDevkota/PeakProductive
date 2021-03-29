@@ -10,7 +10,10 @@
     <string name="reset_text">Reset</string>
     <string name="relax_text">Relax</string>
     <!-- TODO: Remove or change this placeholder text -->
-<string name="update_text">Update</string>
-<string name="add_text">Add</string>
-<string name="cardDetail_text">Card Detail</string>
+    <string name="update_text">Update</string>
+    <string name="add_text">Add</string>
+    <string name="cardDetail_text">Card Detail</string>
+    <string name="taskDetail_text">Task Detail</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

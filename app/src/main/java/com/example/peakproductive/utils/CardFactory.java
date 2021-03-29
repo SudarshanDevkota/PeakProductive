@@ -1,4 +1,4 @@
-package com.example.peakproductive.models;
+package com.example.peakproductive.utils;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.peakproductive.database.CardDatabaseHelper;
+import com.example.peakproductive.models.CardModel;
 
 import java.util.ArrayList;
 

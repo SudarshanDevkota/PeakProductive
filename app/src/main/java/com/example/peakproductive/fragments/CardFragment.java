@@ -23,10 +23,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-import com.example.peakproductive.EditDetails;
+import com.example.peakproductive.EditCardDetailsActivity;
 import com.example.peakproductive.R;
 import com.example.peakproductive.adaptors.CardModelAdaptor;
-import com.example.peakproductive.models.CardFactory;
+import com.example.peakproductive.utils.CardFactory;
 import com.example.peakproductive.models.CardModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -39,7 +39,7 @@ public class CardFragment extends Fragment {
     private static final String TAG = "Card Fragment";
     private static ArrayList<CardModel> cardList;
     View.OnClickListener addCard = v -> {
-        Intent intent = EditDetails.EditDetailIntent(getActivity());
+        Intent intent = EditCardDetailsActivity.EditDetailIntent(getActivity());
         startActivity(intent);
 
 
@@ -83,7 +83,7 @@ public class CardFragment extends Fragment {
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                       adapter.notifyItemChanged(pos);
+                                    adapter.notifyItemChanged(pos);
                                 }
                             });
 
@@ -97,7 +97,7 @@ public class CardFragment extends Fragment {
 
 
                 case ItemTouchHelper.RIGHT:
-                    Intent intent = EditDetails.EditDetailIntent(getActivity(), cardList.get(pos));
+                    Intent intent = EditCardDetailsActivity.EditDetailIntent(getActivity(), cardList.get(pos));
                     startActivity(intent);
                     break;
 
@@ -151,10 +151,7 @@ public class CardFragment extends Fragment {
 
         }
 
-        private void getDialogResponse() {
 
-
-        }
     };
 
     @Override
@@ -163,7 +160,7 @@ public class CardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_card, container, false);
         addbtn = view.findViewById(R.id.btn_addCard);
         addbtn.setOnClickListener(addCard);
-        recyclerView_card = view.findViewById(R.id.task_list);
+        recyclerView_card = view.findViewById(R.id.card_list);
         cardFactory = new CardFactory(getActivity());
         recyclerView_card.setLayoutManager(new LinearLayoutManager(getActivity()));
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallBack);

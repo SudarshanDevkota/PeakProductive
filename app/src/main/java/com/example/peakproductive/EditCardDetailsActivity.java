@@ -8,17 +8,16 @@ import androidx.fragment.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 
 import com.example.peakproductive.fragments.CardDetailsFragment;
 import com.example.peakproductive.models.CardModel;
 
 
-public class EditDetails extends AppCompatActivity {
+public class EditCardDetailsActivity extends AppCompatActivity {
 
 
-    private static final String ACTIVITY_ARG = "com.example.peakproductive.activity_arg";
+    private static final String CARD_ACTIVITY_ARG = "com.example.peakproductive.card_activity_arg";
     private  static int current=0;
     Fragment fragment;
 
@@ -26,13 +25,13 @@ public class EditDetails extends AppCompatActivity {
 
 
     public static Intent EditDetailIntent(Context context) {
-        Intent intent = new Intent(context, EditDetails.class);
+        Intent intent = new Intent(context, EditCardDetailsActivity.class);
         current =0;
         return intent;
     }
     public static Intent EditDetailIntent(Context context, CardModel model) {
-        Intent intent = new Intent(context, EditDetails.class);
-        intent.putExtra(ACTIVITY_ARG,model);
+        Intent intent = new Intent(context, EditCardDetailsActivity.class);
+        intent.putExtra(CARD_ACTIVITY_ARG,model);
         current =1;
         return intent;
     }
@@ -47,7 +46,7 @@ public class EditDetails extends AppCompatActivity {
             fragment = CardDetailsFragment.getNewInstance();
         }
         else{
-            CardModel c = (CardModel) getIntent().getSerializableExtra(ACTIVITY_ARG);
+            CardModel c = (CardModel) getIntent().getSerializableExtra(CARD_ACTIVITY_ARG);
             fragment = CardDetailsFragment.getNewInstance(c);
         }
 
