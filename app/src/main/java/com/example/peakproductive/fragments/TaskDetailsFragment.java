@@ -72,7 +72,7 @@ public class TaskDetailsFragment extends Fragment {
 
         if (!heading.isEmpty()) {
             if(current == 0){
-                factory.addTask(heading, topic,0);
+                factory.addTask(heading, topic,1);
                 Toast.makeText(getActivity(), "Additoon Successful", Toast.LENGTH_SHORT).show();
 
             }else{

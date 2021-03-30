@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.peakproductive.EditCardDetailsActivity;
 import com.example.peakproductive.EditTaskDetailsActivity;
@@ -34,7 +35,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 
-public class TaskFragment extends Fragment {
+public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckBoxListener {
     private ArrayList<TaskModel> taskList;
     private FloatingActionButton addButton;
     private RecyclerView taskRecyclerView;
@@ -66,7 +67,7 @@ public class TaskFragment extends Fragment {
 
         taskList = taskFactory.getTaskList();
 
-        adapter = new TaskModelAdaptor(getActivity(), taskList);
+        adapter = new TaskModelAdaptor(getActivity(), taskList,this);
         taskRecyclerView.setAdapter(adapter);
 
     }
@@ -180,4 +181,16 @@ public class TaskFragment extends Fragment {
 
 
     };
+
+
+    @Override
+    public void onCheckBoxClicked(int position) {
+        
+        TaskModel model = taskList.get(position);
+        int changedstate = model.isCompleted()?0:1;
+        taskFactory.updateTaskState(model.getTaskId(),changedstate);
+        model.setCompleted(changedstate==1?true:false);
+        adapter.notifyItemChanged(position);
+
+    }
 }

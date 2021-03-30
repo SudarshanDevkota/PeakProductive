@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,11 +18,14 @@ import java.util.ArrayList;
 public class TaskModelAdaptor extends RecyclerView.Adapter<TaskModelAdaptor.ViewHolder> {
 
     private static ArrayList<TaskModel> taskList;
+    CheckBoxListener checkBoxListener;
 
     private Context context;
 
 
-    public TaskModelAdaptor(Context context, ArrayList<TaskModel> taskList) {
+
+    public TaskModelAdaptor(Context context, ArrayList<TaskModel> taskList , CheckBoxListener listener) {
+        this.checkBoxListener = listener;
         this.taskList = taskList;
         this.context= context;
 
@@ -42,6 +46,8 @@ public class TaskModelAdaptor extends RecyclerView.Adapter<TaskModelAdaptor.View
         holder.checkBox.setChecked(taskList.get(position).isCompleted());
         holder.taskDeskcripton.setText(taskList.get(position).getTaskDescription());
 
+
+
     }
 
     @Override
@@ -51,13 +57,26 @@ public class TaskModelAdaptor extends RecyclerView.Adapter<TaskModelAdaptor.View
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public CheckBox checkBox;
         public TextView taskDeskcripton;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             checkBox = itemView.findViewById(R.id.check_box);
             taskDeskcripton = itemView.findViewById(R.id.task_content);
+            checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    checkBoxListener.onCheckBoxClicked(getAdapterPosition());
+                }
+            });
+
         }
+
+
     }
+    public interface CheckBoxListener{
+        void onCheckBoxClicked(int position);
+    }
+
 }

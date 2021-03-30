@@ -35,11 +35,19 @@ public class TaskFactory {
         db = database.getWritableDatabase();
         db.update(CardDatabaseHelper.TASK_TABLE,cv,CardDatabaseHelper.COLUMN_TASK_ID + "=?", new String[]{String.valueOf(id)});
         db.close();
+
     }
 
     public void deleteTask(int id) {
         db = database.getWritableDatabase();
         db.delete(CardDatabaseHelper.TASK_TABLE, CardDatabaseHelper.COLUMN_TASK_ID + "=?", new String[]{String.valueOf(id)});
+        db.close();
+    }
+    public void updateTaskState(int id,int currentState){
+        ContentValues cv = new ContentValues();
+        cv.put(CardDatabaseHelper.COLUMN_TASK_ISCOMPLETE,currentState);
+        db= database.getWritableDatabase();
+        db.update(CardDatabaseHelper.TASK_TABLE,cv,CardDatabaseHelper.COLUMN_TASK_ID + "=?", new String[]{String.valueOf(id)});
         db.close();
     }
 
