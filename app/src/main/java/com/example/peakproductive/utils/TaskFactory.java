@@ -23,17 +23,18 @@ public class TaskFactory {
         database = new CardDatabaseHelper(context);
     }
 
-    public boolean addTask(String task,String catagory,int iscompleted) {
+    public boolean addTask(String task, String catagory, int iscompleted) {
         SQLiteDatabase db = database.getWritableDatabase();
-        ContentValues cv = getContentValues(task,catagory,iscompleted);
+        ContentValues cv = getContentValues(task, catagory, iscompleted);
         long ins = db.insert(CardDatabaseHelper.TASK_TABLE, null, cv);
         db.close();
         return ins != -1;
     }
-    public void updateTask(int id,String task,String catagory,int iscompleted) {
-        ContentValues cv = getContentValues(task,catagory,iscompleted);
+
+    public void updateTask(int id, String task, String catagory, int iscompleted) {
+        ContentValues cv = getContentValues(task, catagory, iscompleted);
         db = database.getWritableDatabase();
-        db.update(CardDatabaseHelper.TASK_TABLE,cv,CardDatabaseHelper.COLUMN_TASK_ID + "=?", new String[]{String.valueOf(id)});
+        db.update(CardDatabaseHelper.TASK_TABLE, cv, CardDatabaseHelper.COLUMN_TASK_ID + "=?", new String[]{String.valueOf(id)});
         db.close();
 
     }
@@ -43,11 +44,12 @@ public class TaskFactory {
         db.delete(CardDatabaseHelper.TASK_TABLE, CardDatabaseHelper.COLUMN_TASK_ID + "=?", new String[]{String.valueOf(id)});
         db.close();
     }
-    public void updateTaskState(int id,int currentState){
+
+    public void updateTaskState(int id, int currentState) {
         ContentValues cv = new ContentValues();
-        cv.put(CardDatabaseHelper.COLUMN_TASK_ISCOMPLETE,currentState);
-        db= database.getWritableDatabase();
-        db.update(CardDatabaseHelper.TASK_TABLE,cv,CardDatabaseHelper.COLUMN_TASK_ID + "=?", new String[]{String.valueOf(id)});
+        cv.put(CardDatabaseHelper.COLUMN_TASK_ISCOMPLETE, currentState);
+        db = database.getWritableDatabase();
+        db.update(CardDatabaseHelper.TASK_TABLE, cv, CardDatabaseHelper.COLUMN_TASK_ID + "=?", new String[]{String.valueOf(id)});
         db.close();
     }
 
@@ -63,10 +65,10 @@ public class TaskFactory {
                     int id = cursor.getInt(cursor.getColumnIndex(CardDatabaseHelper.COLUMN_TASK_ID));
                     String taskDetail = cursor.getString(cursor.getColumnIndex(CardDatabaseHelper.COLUMN_TASK_DESCRIPTION));
                     String taskCatagory = cursor.getString(cursor.getColumnIndex(CardDatabaseHelper.COLUMN_TASK_CATAGORY));
-                    boolean done = cursor.getInt(cursor.getColumnIndex(CardDatabaseHelper.COLUMN_TASK_ISCOMPLETE))==1;
+                    boolean done = cursor.getInt(cursor.getColumnIndex(CardDatabaseHelper.COLUMN_TASK_ISCOMPLETE)) == 1;
 
 
-                    TaskModel model = new TaskModel(id, taskDetail,taskCatagory,done);
+                    TaskModel model = new TaskModel(id, taskDetail, taskCatagory, done);
                     list.add(model);
 
 
@@ -84,11 +86,10 @@ public class TaskFactory {
     }
 
 
-
-    private ContentValues getContentValues(String task,String catagory, int isCompleted) {
+    private ContentValues getContentValues(String task, String catagory, int isCompleted) {
         ContentValues cv = new ContentValues();
         cv.put(CardDatabaseHelper.COLUMN_TASK_DESCRIPTION, task);
-        cv.put(CardDatabaseHelper.COLUMN_TASK_CATAGORY,catagory);
+        cv.put(CardDatabaseHelper.COLUMN_TASK_CATAGORY, catagory);
         cv.put(CardDatabaseHelper.COLUMN_TASK_ISCOMPLETE, isCompleted);
         return cv;
     }

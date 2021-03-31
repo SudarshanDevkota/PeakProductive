@@ -10,11 +10,7 @@ public class TaskModel implements Serializable {
     private String taskCatagory;
 
 
-
-
-
-
-    public TaskModel(int taskId, String taskDescription ,String taskCatagory,  boolean isCompleted) {
+    public TaskModel(int taskId, String taskDescription, String taskCatagory, boolean isCompleted) {
         this.taskId = taskId;
         this.taskDescription = taskDescription;
         this.isCompleted = isCompleted;
@@ -26,24 +22,12 @@ public class TaskModel implements Serializable {
         return taskCatagory;
     }
 
-    public void setTaskCatagory(String taskCatagory) {
-        this.taskCatagory = taskCatagory;
-    }
-
     public int getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(int taskId) {
-        this.taskId = taskId;
-    }
-
     public String getTaskDescription() {
         return taskDescription;
-    }
-
-    public void setTaskDescription(String taskDescription) {
-        this.taskDescription = taskDescription;
     }
 
     public boolean isCompleted() {

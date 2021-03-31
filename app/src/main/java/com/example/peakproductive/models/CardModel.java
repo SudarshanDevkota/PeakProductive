@@ -11,7 +11,6 @@ public class CardModel implements Serializable {
     private String cardTag;
 
 
-
     public CardModel(int cardId, String cardTitle, String cardContent, String tag) {
         this.cardId = cardId;
         this.cardTitle = cardTitle;
@@ -23,8 +22,6 @@ public class CardModel implements Serializable {
         return cardTag;
     }
 
-
-
     public String getCardTitle() {
         return cardTitle;
     }
@@ -32,23 +29,9 @@ public class CardModel implements Serializable {
     public String getCardContent() {
         return cardContent;
     }
+
     public int getCardId() {
         return cardId;
     }
 
-    public void setCardId(int cardId) {
-        this.cardId = cardId;
-    }
-
-    public void setCardTitle(String cardTitle) {
-        this.cardTitle = cardTitle;
-    }
-
-    public void setCardContent(String cardContent) {
-        this.cardContent = cardContent;
-    }
-
-    public void setCardTag(String cardTag) {
-        this.cardTag = cardTag;
-    }
 }

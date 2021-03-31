@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.peakproductive.R;
 import com.example.peakproductive.models.TaskModel;
+
 import java.util.ArrayList;
 
 public class TaskModelAdaptor extends RecyclerView.Adapter<TaskModelAdaptor.ViewHolder> {
@@ -23,21 +23,21 @@ public class TaskModelAdaptor extends RecyclerView.Adapter<TaskModelAdaptor.View
     private Context context;
 
 
-
-    public TaskModelAdaptor(Context context, ArrayList<TaskModel> taskList , CheckBoxListener listener) {
+    public TaskModelAdaptor(Context context, ArrayList<TaskModel> taskList, CheckBoxListener listener) {
         this.checkBoxListener = listener;
         this.taskList = taskList;
-        this.context= context;
+        this.context = context;
 
     }
-    public Context getContext(){
+
+    public Context getContext() {
         return context;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.task_view_model,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_view_model, parent, false);
         return new ViewHolder(view);
     }
 
@@ -46,7 +46,6 @@ public class TaskModelAdaptor extends RecyclerView.Adapter<TaskModelAdaptor.View
         holder.checkBox.setChecked(taskList.get(position).isCompleted());
         holder.taskDeskcripton.setText(taskList.get(position).getTaskDescription());
         holder.taskCatagory.setText(taskList.get(position).getTaskCatagory());
-
 
 
     }
@@ -58,9 +57,14 @@ public class TaskModelAdaptor extends RecyclerView.Adapter<TaskModelAdaptor.View
     }
 
 
+    public interface CheckBoxListener {
+        void onCheckBoxClicked(int position);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public CheckBox checkBox;
-        public TextView taskDeskcripton,taskCatagory;
+        public TextView taskDeskcripton, taskCatagory;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             checkBox = itemView.findViewById(R.id.check_box);
@@ -76,9 +80,6 @@ public class TaskModelAdaptor extends RecyclerView.Adapter<TaskModelAdaptor.View
         }
 
 
-    }
-    public interface CheckBoxListener{
-        void onCheckBoxClicked(int position);
     }
 
 }

@@ -73,10 +73,10 @@ public class CardFactory {
 
     }
 
-    public void updateCard(int id,String title, String content, String tag) {
-        ContentValues cv = getContentValues(title,content,tag);
+    public void updateCard(int id, String title, String content, String tag) {
+        ContentValues cv = getContentValues(title, content, tag);
         db = database.getWritableDatabase();
-        db.update(CardDatabaseHelper.CARD_TABLE,cv,CardDatabaseHelper.COLUMN_CARD_ID + "=?", new String[]{String.valueOf(id)});
+        db.update(CardDatabaseHelper.CARD_TABLE, cv, CardDatabaseHelper.COLUMN_CARD_ID + "=?", new String[]{String.valueOf(id)});
         db.close();
     }
 

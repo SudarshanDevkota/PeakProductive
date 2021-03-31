@@ -16,38 +16,58 @@ import android.widget.Toast;
 import com.example.peakproductive.R;
 
 
-
 import com.example.peakproductive.models.TaskModel;
 
 import com.example.peakproductive.utils.TaskFactory;
 
 
 public class TaskDetailsFragment extends Fragment {
-    private static final String TASK_FRAGMENT_ARG= "com.example.peakproductive.fragments.task_fragment_arg";
-
-    private EditText title , catagoty;
+    private static final String TASK_FRAGMENT_ARG = "com.example.peakproductive.fragments.task_fragment_arg";
+    private static int current = 0;
+    private EditText title, catagoty;
     private Button saveUpdateButton;
-    private static int current=0;
     private TaskModel taskModel;
     private TaskFactory factory;
+    View.OnClickListener saveUpdate = v -> {
+
+        String heading = title.getText().toString();
+
+        String topic = catagoty.getText().toString();
+
+
+        if (!heading.isEmpty()) {
+            if (current == 0) {
+                factory.addTask(heading, topic, 0);
+
+            } else {
+                factory.updateTask(taskModel.getTaskId(), heading, topic, taskModel.isCompleted() ? 1 : 0);
+            }
+            getActivity().finish();
+
+
+        } else
+            Toast.makeText(getActivity(), "Cannot Add Empty Task", Toast.LENGTH_SHORT).show();
+
+
+    };
 
     public static TaskDetailsFragment getNewInstance(TaskModel model) {
         Bundle args = new Bundle();
         current = 1;
-        args.putSerializable(TASK_FRAGMENT_ARG,model);
+        args.putSerializable(TASK_FRAGMENT_ARG, model);
 
         TaskDetailsFragment fragment = new TaskDetailsFragment();
         fragment.setArguments(args);
         return fragment;
 
     }
+
     public static TaskDetailsFragment getNewInstance() {
-        current =0;
+        current = 0;
         TaskDetailsFragment taskDetailsFragment = new TaskDetailsFragment();
-        return  taskDetailsFragment;
+        return taskDetailsFragment;
 
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,36 +81,13 @@ public class TaskDetailsFragment extends Fragment {
         factory = new TaskFactory(getActivity());
 
         return view;
-    
+
     }
-    View.OnClickListener saveUpdate = v ->{
-
-        String heading = title.getText().toString();
-
-        String topic = catagoty.getText().toString();
-
-
-        if (!heading.isEmpty()) {
-            if(current == 0){
-                factory.addTask(heading, topic,0);
-                Toast.makeText(getActivity(), "Additoon Successful", Toast.LENGTH_SHORT).show();
-
-            }else{
-                factory.updateTask(taskModel.getTaskId(),heading,topic,taskModel.isCompleted()?1:0);
-            }
-            getActivity().finish();
-
-
-        } else
-            Toast.makeText(getActivity(), "Cannot Add Empty Task", Toast.LENGTH_SHORT).show();
-
-
-    };
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if(current ==1){
+        if (current == 1) {
             taskModel = (TaskModel) getArguments().getSerializable(TASK_FRAGMENT_ARG);
             title.setText(taskModel.getTaskDescription());
             catagoty.setText(taskModel.getTaskCatagory());

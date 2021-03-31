@@ -16,19 +16,16 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.peakproductive.EditCardDetailsActivity;
+
 import com.example.peakproductive.EditTaskDetailsActivity;
 import com.example.peakproductive.R;
-import com.example.peakproductive.adaptors.CardModelAdaptor;
 import com.example.peakproductive.adaptors.TaskModelAdaptor;
 import com.example.peakproductive.models.TaskModel;
-import com.example.peakproductive.utils.CardFactory;
 import com.example.peakproductive.utils.TaskFactory;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -36,47 +33,16 @@ import java.util.ArrayList;
 
 
 public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckBoxListener {
+    View.OnClickListener add = v -> {
+        Intent intent = EditTaskDetailsActivity.TaskDetailActivityIntent(getActivity());
+        startActivity(intent);
+
+    };
     private ArrayList<TaskModel> taskList;
     private FloatingActionButton addButton;
     private RecyclerView taskRecyclerView;
     private TaskModelAdaptor adapter;
     private TaskFactory taskFactory;
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_task, container, false);
-        addButton = view.findViewById(R.id.add_task_button);
-        taskRecyclerView = view.findViewById(R.id.task_list);
-        taskRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        taskFactory = new TaskFactory(getActivity());
-        addButton.setOnClickListener(add);
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallBack);
-        itemTouchHelper.attachToRecyclerView(taskRecyclerView);
-
-
-
-        return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        taskList = taskFactory.getTaskList();
-
-        adapter = new TaskModelAdaptor(getActivity(), taskList,this);
-        taskRecyclerView.setAdapter(adapter);
-
-    }
-    View.OnClickListener add= v->{
-        Intent intent = EditTaskDetailsActivity.TaskDetailActivityIntent(getActivity());
-        startActivity(intent);
-
-    };
-
     ItemTouchHelper.SimpleCallback itemTouchHelperCallBack = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -182,14 +148,41 @@ public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckBoxL
 
     };
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_task, container, false);
+        addButton = view.findViewById(R.id.add_task_button);
+        taskRecyclerView = view.findViewById(R.id.task_list);
+        taskRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        taskFactory = new TaskFactory(getActivity());
+        addButton.setOnClickListener(add);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallBack);
+        itemTouchHelper.attachToRecyclerView(taskRecyclerView);
+
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        taskList = taskFactory.getTaskList();
+
+        adapter = new TaskModelAdaptor(getActivity(), taskList, this);
+        taskRecyclerView.setAdapter(adapter);
+
+    }
 
     @Override
     public void onCheckBoxClicked(int position) {
-        
+
         TaskModel model = taskList.get(position);
-        int changedstate = model.isCompleted()?0:1;
-        taskFactory.updateTaskState(model.getTaskId(),changedstate);
-        model.setCompleted(changedstate==1?true:false);
+        int changedstate = model.isCompleted() ? 0 : 1;
+        taskFactory.updateTaskState(model.getTaskId(), changedstate);
+        model.setCompleted(changedstate == 1 ? true : false);
         adapter.notifyItemChanged(position);
 
     }

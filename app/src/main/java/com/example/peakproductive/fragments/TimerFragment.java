@@ -1,5 +1,10 @@
 package com.example.peakproductive.fragments;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -11,6 +16,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.peakproductive.R;
@@ -18,25 +25,42 @@ import com.example.peakproductive.R;
 import java.util.Locale;
 
 public class TimerFragment extends Fragment {
+    private static final String TAG = "Clock Timer";
+    private static final double DEFAULT_PRODUCTIVE_TIME = 3000000.0;
     private TextView countDownText;
     private Button startTimerButton, resetTimerButton;
     private ProgressBar progressBar;
-    private static final String TAG = "Clock Timer";
-    private static final double DEFAULT_PRODUCTIVE_TIME = 3000000.0;
     private Button relaxButton;
 
     private CountDownTimer productiveCountDownTimer;
     private long timeLeftinMillis = (long) DEFAULT_PRODUCTIVE_TIME; //time left in milliseconds unit. started with default value
     private boolean isTimerActive = false; //check whether the timer is already running
+    //Start pause button on click listener
+    View.OnClickListener start = v -> {
+        Log.d(TAG, "onClick: button clicked");
+
+        if (isTimerActive) {
+            pauseTimer();
+
+        } else {
+
+            startTimer();
+
+        }
+    };
+    //reset button on click listener
+    View.OnClickListener reset = v -> resetTimer();
+
+    //relax button onclick listener
+    View.OnClickListener relax = v -> relaxTime();
 
 
-
-
+    //countdown timer implementation to start a new timer
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView: ##Called##");
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_timer, container, false);
         countDownText = view.findViewById(R.id.time_left);
@@ -55,27 +79,6 @@ public class TimerFragment extends Fragment {
         return view;
     }
 
-    //Start pause button on click listener
-    View.OnClickListener start = v -> {
-        Log.d(TAG, "onClick: button clicked");
-
-        if (isTimerActive) {
-            pauseTimer();
-
-        } else {
-
-            startTimer();
-
-        }
-    };
-
-    //reset button on click listener
-    View.OnClickListener reset = v -> resetTimer();
-
-
-
-    //countdown timer implementation to start a new timer
-
     private void startTimer() {
 
         productiveCountDownTimer = new CountDownTimer(timeLeftinMillis, 1000) {
@@ -89,12 +92,13 @@ public class TimerFragment extends Fragment {
 
             @Override
             public void onFinish() {
-                Toast.makeText(getContext(), "time finished", Toast.LENGTH_SHORT).show();
                 isTimerActive = false;
 
                 startTimerButton.setEnabled(false);
                 resetTimerButton.setEnabled(true);
                 progressBar.setProgress(0);
+                giveNotification("Great Going. Let's Relax for Sometime !!!");
+                relaxTime();
 
             }
         };
@@ -116,6 +120,7 @@ public class TimerFragment extends Fragment {
         updateCountDownText();
 
     }
+    //relax Button Timer 10 min implementation
 
     //reset timer implementation
     private void resetTimer() {
@@ -135,50 +140,10 @@ public class TimerFragment extends Fragment {
 
 
     }
-    //relax Button Timer 10 min implementation
-
-    View.OnClickListener relax = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (isTimerActive)
-                productiveCountDownTimer.cancel();
-            startTimerButton.setEnabled(false);
-            resetTimerButton.setEnabled(true);
-            progressBar.setProgress(100);
-
-            productiveCountDownTimer = new CountDownTimer(600000, 1000) {
-
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    Log.d(TAG, "onTick: Called : time left"+timeLeftinMillis);
-                    timeLeftinMillis = millisUntilFinished;
-                    double pogrs = (millisUntilFinished / 600000.0) * 100;
-
-                    progressBar.setProgress((int) pogrs);
-                    updateCountDownText();
-                }
-
-                @Override
-                public void onFinish() {
-                    Toast.makeText(getContext(), "Relaxation Time Finished", Toast.LENGTH_SHORT).show();
-                    timeLeftinMillis = (long) DEFAULT_PRODUCTIVE_TIME;
-                    progressBar.setProgress(0);
-                    startTimerButton.setEnabled(true);
-                    updateCountDownText();
-                    isTimerActive = false;
-
-                }
-            }.start();
-            isTimerActive = true;
-            relaxButton.setEnabled(false);
-
-
-        }
-    };
 
     //update textview field
     private void updateCountDownText() {
-        Log.d(TAG, "updateCountDownText: ##Called##");
+
         int minutes = (int) (timeLeftinMillis / 1000) / 60;
         int seconds = (int) (timeLeftinMillis / 1000) % 60;
         String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
@@ -187,6 +152,61 @@ public class TimerFragment extends Fragment {
 
     }
 
+    private void relaxTime() {
+        if (isTimerActive)
+            productiveCountDownTimer.cancel();
+        startTimerButton.setEnabled(false);
+        resetTimerButton.setEnabled(true);
+        progressBar.setProgress(100);
+
+        productiveCountDownTimer = new CountDownTimer(6000, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeLeftinMillis = millisUntilFinished;
+                double pogrs = (millisUntilFinished / 6000.0) * 100;
+
+                progressBar.setProgress((int) pogrs);
+                updateCountDownText();
+            }
+
+            @Override
+            public void onFinish() {
+                timeLeftinMillis = (long) DEFAULT_PRODUCTIVE_TIME;
+                progressBar.setProgress(0);
+                startTimerButton.setEnabled(true);
+                updateCountDownText();
+                isTimerActive = false;
+                giveNotification("Relax Time Over. Lets Get Back to Work !!!");
+                startTimer();
+
+            }
+        }.start();
+        isTimerActive = true;
+        relaxButton.setEnabled(false);
+
+    }
+
+
+    private void giveNotification(String msg) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("timer_fragment_notification", "Timer Notification", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getActivity().getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+//        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Uri soundUri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.notification);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity(), "timer_fragment_notification");
+        builder.setContentTitle("Peak Productive");
+        builder.setContentText(msg);
+        builder.setSound(soundUri);
+        builder.setSmallIcon(R.drawable.ic_baseline_timer_24);
+        builder.setAutoCancel(true);
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getActivity());
+        notificationManagerCompat.notify(1, builder.build());
+
+
+    }
 
 
 }
