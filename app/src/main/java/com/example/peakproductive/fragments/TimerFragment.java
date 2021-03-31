@@ -2,7 +2,6 @@ package com.example.peakproductive.fragments;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -159,12 +158,12 @@ public class TimerFragment extends Fragment {
         resetTimerButton.setEnabled(true);
         progressBar.setProgress(100);
 
-        productiveCountDownTimer = new CountDownTimer(6000, 1000) {
+        productiveCountDownTimer = new CountDownTimer(600000, 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
                 timeLeftinMillis = millisUntilFinished;
-                double pogrs = (millisUntilFinished / 6000.0) * 100;
+                double pogrs = (millisUntilFinished / 600000.0) * 100;
 
                 progressBar.setProgress((int) pogrs);
                 updateCountDownText();
