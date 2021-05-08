@@ -85,8 +85,12 @@ public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckBoxL
                     dialog.setCancelable(false);
 
                     dialog.show();
+
+
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundColor(Color.TRANSPARENT);
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
                     dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setBackgroundColor(Color.TRANSPARENT);
+                    dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
                     break;
 
 

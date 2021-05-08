@@ -11,8 +11,8 @@
         <option name="gradleJvm" value="1.8" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
+            <option value="/mnt/1e71cc6b-78c6-409b-a1df-c04a052a43ad/Programming/AndroidStudioProjects/PeakProductive" />
+            <option value="/mnt/1e71cc6b-78c6-409b-a1df-c04a052a43ad/Programming/AndroidStudioProjects/PeakProductive/app" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
