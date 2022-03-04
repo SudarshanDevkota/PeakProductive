@@ -50,6 +50,7 @@
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:text="@string/add_text"
+            android:background="?attr/colorPrimary"
             app:cornerRadius="10dp" />
     </LinearLayout>
 </FrameLayout>
