@@ -17,7 +17,7 @@
             android:layout_margin="10dp"
             android:text="@string/taskDetail_text"
             android:textAlignment="center"
-            android:textColor="@color/purple_dark"
+            android:textColor="?android:textColorPrimary"
             android:textSize="30sp"
             android:textStyle="bold" />
 

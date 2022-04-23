@@ -3,13 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.196" />
+        <entry key="app/src/main/res/drawable/ic_baseline_list_alt_24.xml" value="0.196" />
         <entry key="app/src/main/res/drawable/ic_baseline_note_24.xml" value="0.2015" />
+        <entry key="app/src/main/res/drawable/ic_baseline_timer_24.xml" value="0.196" />
+        <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.196" />
+        <entry key="app/src/main/res/drawable/ic_edit.xml" value="0.196" />
         <entry key="app/src/main/res/layout/activity_edit_details.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/activity_edit_task_details.xml" value="0.2078125" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2078125" />
+        <entry key="app/src/main/res/layout/card_view_model.xml" value="0.2078125" />
         <entry key="app/src/main/res/layout/fragment_card.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_card_details.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_task.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_task_details.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_timer.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/task_view_model.xml" value="0.2078125" />
         <entry key="app/src/main/res/menu/bottom_navigation.xml" value="0.19375" />
       </map>
     </option>

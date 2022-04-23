@@ -27,7 +27,7 @@
                 android:layout_margin="5dp"
                 android:maxWidth="80dp"
                 android:text="Tag"
-                android:textColor="@color/green_dark"
+                android:textColor="?android:textColorPrimary"
                 android:textStyle="bold" />
 
             <TextView
@@ -39,7 +39,7 @@
 
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="@color/purple_dark"
+                android:textColor="?attr/colorPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -52,7 +52,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:text="TextView"
-            android:textColor="@color/blue_dark"
+            android:textColor="?android:textColorPrimary"
             android:textSize="18sp" />
 
     </LinearLayout>

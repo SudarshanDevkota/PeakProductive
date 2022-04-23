@@ -25,8 +25,8 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
+                android:buttonTint="?attr/colorPrimary"
                 android:layout_weight="0"
-                android:buttonTint="@color/green_dark"
                 android:checked="true" />
 
             <TextView
@@ -37,7 +37,7 @@
                 android:gravity="center_vertical"
                 android:padding="3dp"
                 android:text="@string/nav_task"
-                android:textColor="@color/purple_dark"
+                android:textColor="?android:textColorPrimary"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -48,8 +48,6 @@
             android:layout_gravity="right"
             android:padding="2dp"
             android:text="Catagory"
-
-            android:textColor="@color/blue_dark"
             android:textSize="16sp"
             android:textStyle="italic" />
     </LinearLayout>
