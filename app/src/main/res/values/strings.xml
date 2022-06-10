@@ -8,6 +8,7 @@
     <string name="pause_text">Pause</string>
     <string name="title">Title</string>
     <string name="todo">To do</string>
+    <string name="priority">Priority:</string>
 
     <string name="reset_text">Reset</string>
     <string name="relax_text">Relax</string>

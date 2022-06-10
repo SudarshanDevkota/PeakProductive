@@ -14,11 +14,11 @@ import com.example.peakproductive.repo.MainRepository;
 
 
 public class EditCardDetailsActivity extends AppCompatActivity {
-        EditText titleET,descriptionET;
-        Button buttonAU,btnDelete;
-        boolean isUpdate=false;
-        CardModel cardModel;
-        MainRepository repository;
+    EditText titleET, descriptionET;
+    Button buttonAU, btnDelete;
+    boolean isUpdate = false;
+    CardModel cardModel;
+    MainRepository repository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class EditCardDetailsActivity extends AppCompatActivity {
         btnDelete.setOnClickListener(deleteListener);
 
         cardModel = (CardModel) getIntent().getSerializableExtra("model");
-        if(cardModel != null){
+        if (cardModel != null) {
             isUpdate = true;
             buttonAU.setText(getResources().getString(R.string.update_text));
             titleET.setText(cardModel.getCardTitle());
@@ -46,30 +46,30 @@ public class EditCardDetailsActivity extends AppCompatActivity {
 
     }
 
-    View.OnClickListener addUpdateListener = v->{
+    View.OnClickListener addUpdateListener = v -> {
         String title = titleET.getText().toString();
         String content = descriptionET.getText().toString();
 
-        if(!title.isEmpty() && !content.isEmpty()){
-            if(cardModel == null){
+        if (!title.isEmpty() && !content.isEmpty()) {
+            if (cardModel == null) {
                 cardModel = new CardModel();
             }
             cardModel.setTitle(title);
             cardModel.setContent(content);
-            if(isUpdate){
+            if (isUpdate) {
                 repository.updateFlashCard(cardModel);
-            }else{
+            } else {
                 repository.addFlashCard(cardModel);
             }
             finish();
 
 
-        }else{
+        } else {
             Toast.makeText(this, "Empty Title or Description", Toast.LENGTH_SHORT).show();
         }
     };
-    View.OnClickListener deleteListener = v->{
-      repository.deleteFlashCard(cardModel);
-      finish();
+    View.OnClickListener deleteListener = v -> {
+        repository.deleteFlashCard(cardModel);
+        finish();
     };
 }

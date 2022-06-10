@@ -16,7 +16,9 @@ public class TaskModel implements Serializable {
     private String description;
     @ColumnInfo
     private boolean isCompleted;
-    public TaskModel(){}
+
+    public TaskModel() {
+    }
 
     public void setId(int id) {
         this.id = id;

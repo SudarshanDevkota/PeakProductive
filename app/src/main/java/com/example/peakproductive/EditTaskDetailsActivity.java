@@ -23,6 +23,7 @@ public class EditTaskDetailsActivity extends AppCompatActivity {
     TaskModel model;
     boolean isUpdate;
     String[] priorities;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,19 +32,19 @@ public class EditTaskDetailsActivity extends AppCompatActivity {
         btnAdd = findViewById(R.id.btn_addUpdate_task);
         btnAdd.setOnClickListener(addResponse);
         priority = findViewById(R.id.spinner);
-        priorities = new String[] {"High","Moderate","Low"};
-        ArrayAdapter<String> adapter= new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,priorities);
+        priorities = new String[]{"High", "Moderate", "Low"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, priorities);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         priority.setAdapter(adapter);
         priority.setSelection(1);
         repo = new MainRepository(this);
-        if(getIntent().getStringExtra("type").equals("edit")){
+        if (getIntent().getStringExtra("type").equals("edit")) {
             isUpdate = true;
             model = (TaskModel) getIntent().getSerializableExtra("model");
-            Log.d("object details", "onCreate: " +model.getId());
+            Log.d("object details", "onCreate: " + model.getId());
             titleEV.setText(model.getDescription());
             btnAdd.setText(getResources().getString(R.string.update_text));
-
+            priority.setSelection(model.getPriority());
 
 
         }
@@ -51,22 +52,21 @@ public class EditTaskDetailsActivity extends AppCompatActivity {
 
     }
 
-    View.OnClickListener addResponse = v->{
+    View.OnClickListener addResponse = v -> {
         String task = titleEV.getText().toString();
-        if(!task.isEmpty()){
-            if(model==null){
+        if (!task.isEmpty()) {
+            if (model == null) {
                 model = new TaskModel();
             }
             model.setDescription(task);
-            if(isUpdate){
+            if (isUpdate) {
                 repo.updateTask(model);
             }
             model.setPriority(priority.getSelectedItemPosition());
             repo.addTask(model);
             finish();
-        }
-        else{
-            Toast.makeText(this,"Empty Task",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Empty Task", Toast.LENGTH_SHORT).show();
         }
 
     };

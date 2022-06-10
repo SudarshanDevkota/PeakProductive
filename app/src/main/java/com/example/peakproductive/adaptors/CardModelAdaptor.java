@@ -44,7 +44,7 @@ public class CardModelAdaptor extends RecyclerView.Adapter<CardModelAdaptor.View
         holder.descriptionView.setText(cardList.get(position).getCardContent());
         holder.updateBtn.setOnClickListener(view -> {
             Intent intent = new Intent(context, EditCardDetailsActivity.class);
-            intent.putExtra("model",cardList.get(position));
+            intent.putExtra("model", cardList.get(position));
             context.startActivity(intent);
         });
     }

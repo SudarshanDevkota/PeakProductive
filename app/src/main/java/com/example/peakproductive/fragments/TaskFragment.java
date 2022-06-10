@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckboxListener{
+public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckboxListener {
 
     private ArrayList<TaskModel> taskList;
     private FloatingActionButton addButton;
@@ -55,11 +55,11 @@ public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckboxL
         itemTouchHelper.attachToRecyclerView(taskRecyclerView);
         mainRepository = new MainRepository(getContext());
         taskList = new ArrayList<>();
-        adapter = new TaskModelAdaptor(getActivity(), taskList,this);
+        adapter = new TaskModelAdaptor(getActivity(), taskList, this);
         taskRecyclerView.setAdapter(adapter);
         mainRepository.getAllTask().observe(getActivity(), taskModels -> {
             taskList = (ArrayList<TaskModel>) taskModels;
-            adapter = new TaskModelAdaptor(getActivity(), taskList,this);
+            adapter = new TaskModelAdaptor(getActivity(), taskList, this);
             taskRecyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         });
@@ -95,8 +95,8 @@ public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckboxL
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                        mainRepository.deleteTask(taskList.get(pos));
-                                        adapter.notifyItemChanged(pos);
+                                    mainRepository.deleteTask(taskList.get(pos));
+                                    adapter.notifyItemChanged(pos);
 
                                 }
                             });
@@ -123,9 +123,9 @@ public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckboxL
 
                 case ItemTouchHelper.RIGHT:
                     //start edit activity for task detail
-                    Intent intent = new Intent(getActivity(),EditTaskDetailsActivity.class);
-                    intent.putExtra("type","edit");
-                    intent.putExtra("model",taskList.get(pos));
+                    Intent intent = new Intent(getActivity(), EditTaskDetailsActivity.class);
+                    intent.putExtra("type", "edit");
+                    intent.putExtra("model", taskList.get(pos));
                     startActivity(intent);
 
                     break;
@@ -192,8 +192,8 @@ public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckboxL
     @Override
     public void onItemClicked(int position) {
         TaskModel model = taskList.get(position);
-        int changedState = model.isCompleted()?0:1;
-        model.setCompleted(changedState==1?true:false);
+        int changedState = model.isCompleted() ? 0 : 1;
+        model.setCompleted(changedState == 1 ? true : false);
         mainRepository.updateTask(model);
         adapter.notifyItemChanged(position);
     }

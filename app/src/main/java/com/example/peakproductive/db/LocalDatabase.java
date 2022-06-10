@@ -12,15 +12,17 @@ import com.example.peakproductive.dao.TaskDao;
 import com.example.peakproductive.models.CardModel;
 import com.example.peakproductive.models.TaskModel;
 
-@Database(entities = {TaskModel.class, CardModel.class},version = 1,exportSchema = false)
+@Database(entities = {TaskModel.class, CardModel.class}, version = 1, exportSchema = false)
 public abstract class LocalDatabase extends RoomDatabase {
     public static LocalDatabase database;
-    abstract  public  TaskDao getTaskDao();
+
+    abstract public TaskDao getTaskDao();
+
     abstract public FlashCardDao getFlashCardDao();
 
-    public static LocalDatabase getInstance(Context context){
-        if(database == null){
-            database = Room.databaseBuilder(context.getApplicationContext(),LocalDatabase.class,"database").allowMainThreadQueries().build();
+    public static LocalDatabase getInstance(Context context) {
+        if (database == null) {
+            database = Room.databaseBuilder(context.getApplicationContext(), LocalDatabase.class, "database").allowMainThreadQueries().build();
         }
         return database;
     }

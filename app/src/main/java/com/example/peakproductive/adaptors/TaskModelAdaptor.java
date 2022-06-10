@@ -22,13 +22,13 @@ import java.util.ArrayList;
 
 public class TaskModelAdaptor extends RecyclerView.Adapter<TaskModelAdaptor.ViewHolder> {
 
-    private  ArrayList<TaskModel> taskList;
+    private ArrayList<TaskModel> taskList;
 
     private Context context;
     private CheckboxListener listener;
 
 
-    public TaskModelAdaptor(Context context, ArrayList<TaskModel> taskList,CheckboxListener listener) {
+    public TaskModelAdaptor(Context context, ArrayList<TaskModel> taskList, CheckboxListener listener) {
         this.taskList = taskList;
         this.context = context;
         this.listener = listener;
@@ -51,20 +51,20 @@ public class TaskModelAdaptor extends RecyclerView.Adapter<TaskModelAdaptor.View
         int prio = taskList.get(position).getPriority();
         holder.checkBox.setChecked(taskList.get(position).isCompleted());
         holder.taskDescription.setText(taskList.get(position).getDescription());
-        holder.checkBox.setOnClickListener(v->{
+        holder.checkBox.setOnClickListener(v -> {
             listener.onItemClicked(position);
 
         });
         GradientDrawable bg = (GradientDrawable) holder.layout.getBackground();
 
-        if(prio == 0){
-            bg.setStroke(5,getContext().getColor(R.color.orange));
-        }else if(prio ==1){
-            bg.setStroke(5,getContext().getColor(R.color.green));
-        }else{
-            bg.setStroke(5,getContext().getColor(R.color.purple_dark));
+        if (prio == 0) {
+            bg.setStroke(5, getContext().getColor(R.color.orange));
+        } else if (prio == 1) {
+            bg.setStroke(5, getContext().getColor(R.color.green));
+        } else {
+            bg.setStroke(5, getContext().getColor(R.color.purple_dark));
         }
-        if(taskList.get(position).isCompleted()){
+        if (taskList.get(position).isCompleted()) {
             holder.taskDescription.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         }
 
@@ -88,15 +88,16 @@ public class TaskModelAdaptor extends RecyclerView.Adapter<TaskModelAdaptor.View
             checkBox = itemView.findViewById(R.id.check_box);
             taskDescription = itemView.findViewById(R.id.task_content);
             layout = itemView.findViewById(R.id.layout);
-            }
-
         }
-        public interface CheckboxListener{
-            void onItemClicked(int position);
-        }
-
 
     }
+
+    public interface CheckboxListener {
+        void onItemClicked(int position);
+    }
+
+
+}
 
 
 

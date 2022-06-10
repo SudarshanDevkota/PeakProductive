@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_margin="15dp"
-        android:text="@string/detail"
+        android:text="@string/cardDetail_text"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="?android:textColorPrimary"

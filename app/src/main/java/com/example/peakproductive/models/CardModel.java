@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(tableName="card_table")
+@Entity(tableName = "card_table")
 public class CardModel implements Serializable {
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
@@ -15,15 +15,11 @@ public class CardModel implements Serializable {
     private String title;
     @ColumnInfo(name = "content")
     private String content;
-    @ColumnInfo(name = "tag")
-    private String cardTag;
 
 
-    public CardModel(){}
-
-    public String getCardTag() {
-        return cardTag;
+    public CardModel() {
     }
+
 
     public String getCardTitle() {
         return title;
@@ -53,9 +49,6 @@ public class CardModel implements Serializable {
         this.content = content;
     }
 
-    public void setCardTag(String cardTag) {
-        this.cardTag = cardTag;
-    }
 
     public String getCardContent() {
         return content;
