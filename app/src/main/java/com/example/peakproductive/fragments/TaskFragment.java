@@ -33,16 +33,44 @@ import java.util.ArrayList;
 
 
 public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckBoxListener {
-    View.OnClickListener add = v -> {
-        Intent intent = EditTaskDetailsActivity.TaskDetailActivityIntent(getActivity());
-        startActivity(intent);
 
-    };
     private ArrayList<TaskModel> taskList;
     private FloatingActionButton addButton;
     private RecyclerView taskRecyclerView;
     private TaskModelAdaptor adapter;
     private TaskFactory taskFactory;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_task, container, false);
+        addButton = view.findViewById(R.id.add_task_button);
+        taskRecyclerView = view.findViewById(R.id.task_list);
+        taskRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        taskFactory = new TaskFactory(getActivity());
+        addButton.setOnClickListener(add);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallBack);
+        itemTouchHelper.attachToRecyclerView(taskRecyclerView);
+
+
+        return view;
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        taskList = taskFactory.getTaskList();
+
+        adapter = new TaskModelAdaptor(getActivity(), taskList, this);
+        taskRecyclerView.setAdapter(adapter);
+
+    }
+
+    View.OnClickListener add = v -> {
+        //start add new task activity
+
+    };
     ItemTouchHelper.SimpleCallback itemTouchHelperCallBack = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -95,8 +123,7 @@ public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckBoxL
 
 
                 case ItemTouchHelper.RIGHT:
-                    Intent intent = EditTaskDetailsActivity.TaskDetailActivityIntent(getActivity(), taskList.get(pos));
-                    startActivity(intent);
+                    //start edit activity for task details
                     break;
 
             }
@@ -152,33 +179,8 @@ public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckBoxL
 
     };
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_task, container, false);
-        addButton = view.findViewById(R.id.add_task_button);
-        taskRecyclerView = view.findViewById(R.id.task_list);
-        taskRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        taskFactory = new TaskFactory(getActivity());
-        addButton.setOnClickListener(add);
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallBack);
-        itemTouchHelper.attachToRecyclerView(taskRecyclerView);
 
 
-        return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        taskList = taskFactory.getTaskList();
-
-        adapter = new TaskModelAdaptor(getActivity(), taskList, this);
-        taskRecyclerView.setAdapter(adapter);
-
-    }
 
     @Override
     public void onCheckBoxClicked(int position) {

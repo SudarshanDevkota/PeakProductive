@@ -18,6 +18,22 @@ public class MainActivity extends AppCompatActivity {
     private final Fragment cardFragment = new CardFragment();
     private final FragmentManager fragmentManager = getSupportFragmentManager();
     Fragment active = taskFragment;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.tab_tasks);
+        fragmentManager.beginTransaction().add(R.id.fragment_view, timerFragment, "3").hide(timerFragment).commit();
+        fragmentManager.beginTransaction().add(R.id.fragment_view, cardFragment, "1").hide(cardFragment).commit();
+        fragmentManager.beginTransaction().add(R.id.fragment_view, taskFragment, "2").commit();
+
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(navigation_listener);
+    }
+
     private final BottomNavigationView.OnNavigationItemSelectedListener navigation_listener =
             item -> {
 
@@ -39,18 +55,4 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             };
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.tab_tasks);
-        fragmentManager.beginTransaction().add(R.id.fragment_view, timerFragment, "3").hide(timerFragment).commit();
-        fragmentManager.beginTransaction().add(R.id.fragment_view, cardFragment, "1").hide(cardFragment).commit();
-        fragmentManager.beginTransaction().add(R.id.fragment_view, taskFragment, "2").commit();
-
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(navigation_listener);
-    }
 }
