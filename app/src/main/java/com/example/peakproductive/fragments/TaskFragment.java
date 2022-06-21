@@ -26,7 +26,6 @@ import com.example.peakproductive.EditTaskDetailsActivity;
 import com.example.peakproductive.R;
 import com.example.peakproductive.adaptors.TaskModelAdaptor;
 import com.example.peakproductive.models.TaskModel;
-import com.example.peakproductive.utils.TaskFactory;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -38,7 +37,6 @@ public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckBoxL
     private FloatingActionButton addButton;
     private RecyclerView taskRecyclerView;
     private TaskModelAdaptor adapter;
-    private TaskFactory taskFactory;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,7 +46,6 @@ public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckBoxL
         addButton = view.findViewById(R.id.add_task_button);
         taskRecyclerView = view.findViewById(R.id.task_list);
         taskRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        taskFactory = new TaskFactory(getActivity());
         addButton.setOnClickListener(add);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallBack);
         itemTouchHelper.attachToRecyclerView(taskRecyclerView);
@@ -60,10 +57,7 @@ public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckBoxL
     public void onResume() {
         super.onResume();
 
-        taskList = taskFactory.getTaskList();
 
-        adapter = new TaskModelAdaptor(getActivity(), taskList, this);
-        taskRecyclerView.setAdapter(adapter);
 
     }
 
@@ -95,9 +89,6 @@ public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckBoxL
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    taskFactory.deleteTask(id);
-                                    taskList.remove(pos);
-                                    adapter.notifyItemRemoved(pos);
 
                                 }
                             });
@@ -187,7 +178,6 @@ public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckBoxL
 
         TaskModel model = taskList.get(position);
         int changedstate = model.isCompleted() ? 0 : 1;
-        taskFactory.updateTaskState(model.getTaskId(), changedstate);
         model.setCompleted(changedstate == 1 ? true : false);
         adapter.notifyItemChanged(position);
 

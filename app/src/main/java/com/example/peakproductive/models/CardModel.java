@@ -1,9 +1,9 @@
 package com.example.peakproductive.models;
 
+import androidx.room.Entity;
 
-import java.io.Serializable;
-
-public class CardModel implements Serializable {
+@Entity
+public class CardModel {
     private int cardId;
     private String cardTitle;
     private String cardContent;

@@ -1,25 +1,25 @@
 package com.example.peakproductive.models;
 
-import java.io.Serializable;
+import androidx.room.Entity;
 
-public class TaskModel implements Serializable {
+@Entity
+public class TaskModel{
 
     private int taskId;
     private String taskDescription;
     private boolean isCompleted;
-    private String taskCatagory;
+    private int priority;
 
 
-    public TaskModel(int taskId, String taskDescription, String taskCatagory, boolean isCompleted) {
+    public TaskModel(int taskId, String taskDescription, boolean isCompleted, int priority) {
         this.taskId = taskId;
         this.taskDescription = taskDescription;
         this.isCompleted = isCompleted;
-        this.taskCatagory = taskCatagory;
-
+        this.priority = priority;
     }
 
-    public String getTaskCatagory() {
-        return taskCatagory;
+    public int getPriority() {
+        return priority;
     }
 
     public int getTaskId() {
