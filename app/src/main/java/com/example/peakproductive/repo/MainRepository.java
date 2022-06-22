@@ -35,5 +35,9 @@ public class MainRepository {
         taskDao = localDatabase.getTaskDao();
             taskDao.delete(taskModel);
     }
+    public void updateTask(TaskModel task){
+        taskDao = localDatabase.getTaskDao();
+        taskDao.update(task);
+    }
 
 }

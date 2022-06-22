@@ -4,8 +4,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "task_table")
-public class TaskModel{
+public class TaskModel implements Serializable {
 
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
@@ -40,9 +42,6 @@ public class TaskModel{
         return priority;
     }
 
-    public int getTaskId() {
-        return id;
-    }
 
     public String getDescription() {
         return description;

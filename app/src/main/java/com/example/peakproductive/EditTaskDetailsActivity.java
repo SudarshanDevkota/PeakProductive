@@ -2,6 +2,7 @@ package com.example.peakproductive;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,8 @@ public class EditTaskDetailsActivity extends AppCompatActivity {
     EditText titleEV;
     Button btnAdd;
     MainRepository repo;
+    TaskModel model;
+    boolean isUpdate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +27,16 @@ public class EditTaskDetailsActivity extends AppCompatActivity {
         btnAdd = findViewById(R.id.btn_addUpdate_task);
         btnAdd.setOnClickListener(addResponse);
         repo = new MainRepository(this);
+        if(getIntent().getStringExtra("type").equals("edit")){
+            isUpdate = true;
+            model = (TaskModel) getIntent().getSerializableExtra("model");
+            Log.d("object details", "onCreate: " +model.getId());
+            titleEV.setText(model.getDescription());
+            btnAdd.setText("Update");
+
+
+
+        }
 
 
     }
@@ -31,8 +44,13 @@ public class EditTaskDetailsActivity extends AppCompatActivity {
     View.OnClickListener addResponse = v->{
         String task = titleEV.getText().toString();
         if(!task.isEmpty()){
-            TaskModel model = new TaskModel();
+            if(model==null){
+                model = new TaskModel();
+            }
             model.setDescription(task);
+            if(isUpdate){
+                repo.updateTask(model);
+            }
             repo.addTask(model);
             finish();
         }
@@ -41,4 +59,5 @@ public class EditTaskDetailsActivity extends AppCompatActivity {
         }
 
     };
+
 }

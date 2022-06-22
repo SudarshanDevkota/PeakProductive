@@ -55,7 +55,8 @@ public class TaskFragment extends Fragment {
         itemTouchHelper.attachToRecyclerView(taskRecyclerView);
         mainRepository = new MainRepository(getContext());
         taskList = new ArrayList<>();
-
+        adapter = new TaskModelAdaptor(getActivity(), taskList);
+        taskRecyclerView.setAdapter(adapter);
         mainRepository.getAllTask().observe(getActivity(), taskModels -> {
             taskList = (ArrayList<TaskModel>) taskModels;
             adapter = new TaskModelAdaptor(getActivity(), taskList);
@@ -83,7 +84,7 @@ public class TaskFragment extends Fragment {
 
                 case ItemTouchHelper.LEFT:
 
-                    int id = taskList.get(pos).getTaskId();
+                    int id = taskList.get(pos).getId();
 
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(adapter.getContext());
@@ -122,6 +123,10 @@ public class TaskFragment extends Fragment {
 
                 case ItemTouchHelper.RIGHT:
                     //start edit activity for task detail
+                    Intent intent = new Intent(getActivity(),EditTaskDetailsActivity.class);
+                    intent.putExtra("type","edit");
+                    intent.putExtra("model",taskList.get(pos));
+                    startActivity(intent);
 
                     break;
 
@@ -178,5 +183,9 @@ public class TaskFragment extends Fragment {
 
     };
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
 }
