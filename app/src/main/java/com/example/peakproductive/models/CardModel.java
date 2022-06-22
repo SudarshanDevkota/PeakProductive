@@ -2,7 +2,7 @@ package com.example.peakproductive.models;
 
 import androidx.room.Entity;
 
-@Entity
+@Entity(tableName="card_table")
 public class CardModel {
     private int cardId;
     private String cardTitle;

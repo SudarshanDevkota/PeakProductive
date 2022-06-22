@@ -62,8 +62,9 @@ public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckBoxL
     }
 
     View.OnClickListener add = v -> {
-        //start add new task activity
-
+        Intent intent = new Intent(getActivity(),EditTaskDetailsActivity.class);
+        intent.putExtra("type","add");
+        startActivity(intent);
     };
     ItemTouchHelper.SimpleCallback itemTouchHelperCallBack = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
         @Override

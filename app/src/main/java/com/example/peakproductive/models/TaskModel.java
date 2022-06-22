@@ -1,33 +1,51 @@
 package com.example.peakproductive.models;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "task_table")
 public class TaskModel{
 
-    private int taskId;
-    private String taskDescription;
+    @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+    @ColumnInfo
+    private String description;
+    @ColumnInfo
     private boolean isCompleted;
-    private int priority;
+    public TaskModel(){}
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public TaskModel(int taskId, String taskDescription, boolean isCompleted, int priority) {
-        this.taskId = taskId;
-        this.taskDescription = taskDescription;
-        this.isCompleted = isCompleted;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setPriority(int priority) {
         this.priority = priority;
     }
+
+    @ColumnInfo
+    private int priority;
+
 
     public int getPriority() {
         return priority;
     }
 
     public int getTaskId() {
-        return taskId;
+        return id;
     }
 
-    public String getTaskDescription() {
-        return taskDescription;
+    public String getDescription() {
+        return description;
     }
 
     public boolean isCompleted() {

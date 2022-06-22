@@ -33,13 +33,13 @@
             android:scrollbars="vertical" />
 
         <EditText
-            android:id="@+id/edit_taskCatagory"
+            android:id="@+id/edit_tasCategory"
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_margin="5dp"
             android:ems="10"
-            android:hint="Catagory"
+            android:hint="Category"
             android:inputType="textPersonName"
             android:padding="5dp" />
 

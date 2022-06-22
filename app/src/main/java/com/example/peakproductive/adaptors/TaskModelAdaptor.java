@@ -44,8 +44,8 @@ public class TaskModelAdaptor extends RecyclerView.Adapter<TaskModelAdaptor.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.checkBox.setChecked(taskList.get(position).isCompleted());
-        holder.taskDeskcripton.setText(taskList.get(position).getTaskDescription());
-        holder.taskCatagory.setText(taskList.get(position).getTaskCatagory());
+        holder.taskDeskcripton.setText(taskList.get(position).getDescription());
+        holder.taskCatagory.setText(taskList.get(position).getPriority());
 
 
     }
