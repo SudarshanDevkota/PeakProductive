@@ -12,6 +12,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,17 +27,20 @@ import com.example.peakproductive.EditTaskDetailsActivity;
 import com.example.peakproductive.R;
 import com.example.peakproductive.adaptors.TaskModelAdaptor;
 import com.example.peakproductive.models.TaskModel;
+import com.example.peakproductive.repo.MainRepository;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
-public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckBoxListener {
+public class TaskFragment extends Fragment {
 
     private ArrayList<TaskModel> taskList;
     private FloatingActionButton addButton;
     private RecyclerView taskRecyclerView;
     private TaskModelAdaptor adapter;
+    private MainRepository mainRepository;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,21 +53,21 @@ public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckBoxL
         addButton.setOnClickListener(add);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallBack);
         itemTouchHelper.attachToRecyclerView(taskRecyclerView);
+        mainRepository = new MainRepository(getContext());
+        taskList = new ArrayList<>();
 
-
+        mainRepository.getAllTask().observe(getActivity(), taskModels -> {
+            taskList = (ArrayList<TaskModel>) taskModels;
+            adapter = new TaskModelAdaptor(getActivity(), taskList);
+            taskRecyclerView.setAdapter(adapter);
+            adapter.notifyItemInserted(taskModels.size() - 1);
+        });
         return view;
-    }
-    @Override
-    public void onResume() {
-        super.onResume();
-
-
-
     }
 
     View.OnClickListener add = v -> {
-        Intent intent = new Intent(getActivity(),EditTaskDetailsActivity.class);
-        intent.putExtra("type","add");
+        Intent intent = new Intent(getActivity(), EditTaskDetailsActivity.class);
+        intent.putExtra("type", "add");
         startActivity(intent);
     };
     ItemTouchHelper.SimpleCallback itemTouchHelperCallBack = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -90,6 +94,8 @@ public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckBoxL
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                        mainRepository.deleteTask(taskList.get(pos));
+                                        adapter.notifyItemChanged(pos);
 
                                 }
                             });
@@ -115,7 +121,8 @@ public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckBoxL
 
 
                 case ItemTouchHelper.RIGHT:
-                    //start edit activity for task details
+                    //start edit activity for task detail
+
                     break;
 
             }
@@ -172,15 +179,4 @@ public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckBoxL
     };
 
 
-
-
-    @Override
-    public void onCheckBoxClicked(int position) {
-
-        TaskModel model = taskList.get(position);
-        int changedstate = model.isCompleted() ? 0 : 1;
-        model.setCompleted(changedstate == 1 ? true : false);
-        adapter.notifyItemChanged(position);
-
-    }
 }

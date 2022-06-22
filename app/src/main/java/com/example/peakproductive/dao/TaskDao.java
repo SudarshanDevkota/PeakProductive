@@ -1,8 +1,11 @@
 package com.example.peakproductive.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.peakproductive.models.TaskModel;
 
@@ -15,7 +18,13 @@ public interface TaskDao {
     void insert(TaskModel taskModel);
 
     @Query("SELECT * FROM task_table")
-    List<TaskModel> getAllTasks();
+    LiveData<List<TaskModel>> getAllTasks();
+
+    @Update
+    void update(TaskModel taskModel);
+
+    @Delete
+    void delete(TaskModel taskModel);
 
 
 }

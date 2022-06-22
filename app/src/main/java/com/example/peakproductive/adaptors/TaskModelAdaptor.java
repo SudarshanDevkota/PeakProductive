@@ -18,13 +18,11 @@ import java.util.ArrayList;
 public class TaskModelAdaptor extends RecyclerView.Adapter<TaskModelAdaptor.ViewHolder> {
 
     private static ArrayList<TaskModel> taskList;
-    CheckBoxListener checkBoxListener;
 
     private Context context;
 
 
-    public TaskModelAdaptor(Context context, ArrayList<TaskModel> taskList, CheckBoxListener listener) {
-        this.checkBoxListener = listener;
+    public TaskModelAdaptor(Context context, ArrayList<TaskModel> taskList) {
         this.taskList = taskList;
         this.context = context;
 
@@ -45,7 +43,7 @@ public class TaskModelAdaptor extends RecyclerView.Adapter<TaskModelAdaptor.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.checkBox.setChecked(taskList.get(position).isCompleted());
         holder.taskDeskcripton.setText(taskList.get(position).getDescription());
-        holder.taskCatagory.setText(taskList.get(position).getPriority());
+//        holder.taskCatagory.setText(taskList.get(position).getPriority());
 
 
     }
@@ -57,10 +55,6 @@ public class TaskModelAdaptor extends RecyclerView.Adapter<TaskModelAdaptor.View
     }
 
 
-    public interface CheckBoxListener {
-        void onCheckBoxClicked(int position);
-    }
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         public CheckBox checkBox;
         public TextView taskDeskcripton, taskCatagory;
@@ -70,16 +64,13 @@ public class TaskModelAdaptor extends RecyclerView.Adapter<TaskModelAdaptor.View
             checkBox = itemView.findViewById(R.id.check_box);
             taskDeskcripton = itemView.findViewById(R.id.task_content);
             taskCatagory = itemView.findViewById(R.id.edit_catagory);
-            checkBox.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    checkBoxListener.onCheckBoxClicked(getAdapterPosition());
-                }
-            });
+
+            }
 
         }
 
 
     }
 
-}
+
+
