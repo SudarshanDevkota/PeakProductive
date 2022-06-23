@@ -1,10 +1,14 @@
 package com.example.peakproductive.adaptors;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,13 +47,22 @@ public class TaskModelAdaptor extends RecyclerView.Adapter<TaskModelAdaptor.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        int prio = taskList.get(position).getPriority();
         holder.checkBox.setChecked(taskList.get(position).isCompleted());
-        holder.taskDeskcripton.setText(taskList.get(position).getDescription());
-//        holder.taskCatagory.setText(taskList.get(position).getPriority());
+        holder.taskDescription.setText(taskList.get(position).getDescription());
         holder.checkBox.setOnClickListener(v->{
             listener.onItemClicked(position);
 
         });
+        GradientDrawable bg = (GradientDrawable) holder.layout.getBackground();
+
+        if(prio == 0){
+            bg.setStroke(5,getContext().getColor(R.color.orange));
+        }else if(prio ==1){
+            bg.setStroke(5,getContext().getColor(R.color.green));
+        }else{
+            bg.setStroke(5,getContext().getColor(R.color.purple_dark));
+        }
 
 
     }
@@ -63,14 +76,14 @@ public class TaskModelAdaptor extends RecyclerView.Adapter<TaskModelAdaptor.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public CheckBox checkBox;
-        public TextView taskDeskcripton, taskCatagory;
+        public TextView taskDescription;
+        LinearLayout layout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             checkBox = itemView.findViewById(R.id.check_box);
-            taskDeskcripton = itemView.findViewById(R.id.task_content);
-            taskCatagory = itemView.findViewById(R.id.edit_catagory);
-
+            taskDescription = itemView.findViewById(R.id.task_content);
+            layout = itemView.findViewById(R.id.layout);
             }
 
         }
