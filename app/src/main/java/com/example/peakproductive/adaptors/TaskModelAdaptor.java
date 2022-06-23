@@ -20,11 +20,13 @@ public class TaskModelAdaptor extends RecyclerView.Adapter<TaskModelAdaptor.View
     private static ArrayList<TaskModel> taskList;
 
     private Context context;
+    private CheckboxListener listener;
 
 
-    public TaskModelAdaptor(Context context, ArrayList<TaskModel> taskList) {
+    public TaskModelAdaptor(Context context, ArrayList<TaskModel> taskList,CheckboxListener listener) {
         this.taskList = taskList;
         this.context = context;
+        this.listener = listener;
 
     }
 
@@ -44,6 +46,10 @@ public class TaskModelAdaptor extends RecyclerView.Adapter<TaskModelAdaptor.View
         holder.checkBox.setChecked(taskList.get(position).isCompleted());
         holder.taskDeskcripton.setText(taskList.get(position).getDescription());
 //        holder.taskCatagory.setText(taskList.get(position).getPriority());
+        holder.checkBox.setOnClickListener(v->{
+            listener.onItemClicked(position);
+
+        });
 
 
     }
@@ -67,6 +73,9 @@ public class TaskModelAdaptor extends RecyclerView.Adapter<TaskModelAdaptor.View
 
             }
 
+        }
+        public interface CheckboxListener{
+            void onItemClicked(int position);
         }
 
 

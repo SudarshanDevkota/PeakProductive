@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TaskFragment extends Fragment {
+public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckboxListener{
 
     private ArrayList<TaskModel> taskList;
     private FloatingActionButton addButton;
@@ -55,11 +55,11 @@ public class TaskFragment extends Fragment {
         itemTouchHelper.attachToRecyclerView(taskRecyclerView);
         mainRepository = new MainRepository(getContext());
         taskList = new ArrayList<>();
-        adapter = new TaskModelAdaptor(getActivity(), taskList);
+        adapter = new TaskModelAdaptor(getActivity(), taskList,this);
         taskRecyclerView.setAdapter(adapter);
         mainRepository.getAllTask().observe(getActivity(), taskModels -> {
             taskList = (ArrayList<TaskModel>) taskModels;
-            adapter = new TaskModelAdaptor(getActivity(), taskList);
+            adapter = new TaskModelAdaptor(getActivity(), taskList,this);
             taskRecyclerView.setAdapter(adapter);
             adapter.notifyItemInserted(taskModels.size() - 1);
         });
@@ -187,5 +187,14 @@ public class TaskFragment extends Fragment {
     public void onResume() {
         super.onResume();
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemClicked(int position) {
+        TaskModel model = taskList.get(position);
+        int changedState = model.isCompleted()?0:1;
+        model.setCompleted(changedState==1?true:false);
+        mainRepository.updateTask(model);
+        adapter.notifyItemChanged(position);
     }
 }
