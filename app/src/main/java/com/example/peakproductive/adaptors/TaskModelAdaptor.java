@@ -2,6 +2,7 @@ package com.example.peakproductive.adaptors;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
@@ -62,6 +63,9 @@ public class TaskModelAdaptor extends RecyclerView.Adapter<TaskModelAdaptor.View
             bg.setStroke(5,getContext().getColor(R.color.green));
         }else{
             bg.setStroke(5,getContext().getColor(R.color.purple_dark));
+        }
+        if(taskList.get(position).isCompleted()){
+            holder.taskDescription.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         }
 
 
