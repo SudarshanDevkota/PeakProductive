@@ -11,6 +11,7 @@
         <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.196" />
         <entry key="app/src/main/res/drawable/ic_edit.xml" value="0.196" />
         <entry key="app/src/main/res/drawable/priority_drawable.xml" value="0.1295" />
+        <entry key="app/src/main/res/layout/activity_edit_card_details.xml" value="0.1296875" />
         <entry key="app/src/main/res/layout/activity_edit_details.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/activity_edit_task_details.xml" value="0.2078125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2078125" />

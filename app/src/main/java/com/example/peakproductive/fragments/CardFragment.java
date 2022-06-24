@@ -1,5 +1,6 @@
 package com.example.peakproductive.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.example.peakproductive.EditCardDetailsActivity;
 import com.example.peakproductive.R;
 import com.example.peakproductive.adaptors.CardModelAdaptor;
 
@@ -27,8 +29,6 @@ public class CardFragment extends Fragment {
 
     private static final String TAG = "Card Fragment";
     private static ArrayList<CardModel> cardList;
-
-    private RecyclerView recyclerView_card;
     private CardModelAdaptor adapter;
     private FloatingActionButton addBtn;
 
@@ -41,8 +41,7 @@ public class CardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_card, container, false);
         addBtn = view.findViewById(R.id.btn_addCard);
         addBtn.setOnClickListener(addCard);
-        recyclerView_card = view.findViewById(R.id.card_list);
-        recyclerView_card.setLayoutManager(new LinearLayoutManager(getActivity()));
+
 
 
 
@@ -51,7 +50,8 @@ public class CardFragment extends Fragment {
     }
 
     View.OnClickListener addCard = v -> {
-     //add card implementation
+        Intent intent = new Intent(getActivity(), EditCardDetailsActivity.class);
+        startActivity(intent);
 
 
     };
