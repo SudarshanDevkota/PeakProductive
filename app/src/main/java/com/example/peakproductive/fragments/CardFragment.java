@@ -30,7 +30,7 @@ public class CardFragment extends Fragment {
 
     private RecyclerView recyclerView_card;
     private CardModelAdaptor adapter;
-    private FloatingActionButton addbtn;
+    private FloatingActionButton addBtn;
 
 
 
@@ -39,8 +39,8 @@ public class CardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_card, container, false);
-        addbtn = view.findViewById(R.id.btn_addCard);
-        addbtn.setOnClickListener(addCard);
+        addBtn = view.findViewById(R.id.btn_addCard);
+        addBtn.setOnClickListener(addCard);
         recyclerView_card = view.findViewById(R.id.card_list);
         recyclerView_card.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -55,6 +55,7 @@ public class CardFragment extends Fragment {
 
 
     };
+
 
 
     //    private ArrayList<CardModel> generateSimpleList() {
