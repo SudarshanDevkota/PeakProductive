@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class TaskModelAdaptor extends RecyclerView.Adapter<TaskModelAdaptor.ViewHolder> {
 
-    private static ArrayList<TaskModel> taskList;
+    private  ArrayList<TaskModel> taskList;
 
     private Context context;
     private CheckboxListener listener;

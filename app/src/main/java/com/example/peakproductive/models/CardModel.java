@@ -1,37 +1,66 @@
 package com.example.peakproductive.models;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 @Entity(tableName="card_table")
 public class CardModel {
-    private int cardId;
-    private String cardTitle;
-    private String cardContent;
-
+    @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+    @ColumnInfo(name = "title")
+    private String title;
+    @ColumnInfo(name = "content")
+    private String content;
+    @ColumnInfo(name = "tag")
     private String cardTag;
 
 
-    public CardModel(int cardId, String cardTitle, String cardContent, String tag) {
-        this.cardId = cardId;
-        this.cardTitle = cardTitle;
-        this.cardContent = cardContent;
-        this.cardTag = tag;
-    }
+    public CardModel(){}
 
     public String getCardTag() {
         return cardTag;
     }
 
     public String getCardTitle() {
-        return cardTitle;
+        return title;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setCardTag(String cardTag) {
+        this.cardTag = cardTag;
     }
 
     public String getCardContent() {
-        return cardContent;
+        return content;
     }
 
     public int getCardId() {
-        return cardId;
+        return id;
     }
 
 }
