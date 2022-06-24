@@ -18,6 +18,7 @@ import com.example.peakproductive.EditCardDetailsActivity;
 import com.example.peakproductive.R;
 import com.example.peakproductive.adaptors.CardModelAdaptor;
 
+import com.example.peakproductive.adaptors.TaskModelAdaptor;
 import com.example.peakproductive.models.CardModel;
 import com.example.peakproductive.repo.MainRepository;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 
 
 
-public class CardFragment extends Fragment {
+public class CardFragment extends Fragment{
 
     private static final String TAG = "Card Fragment";
     private static ArrayList<CardModel> cardList;
@@ -67,6 +68,7 @@ public class CardFragment extends Fragment {
 
 
     };
+
 
 
 

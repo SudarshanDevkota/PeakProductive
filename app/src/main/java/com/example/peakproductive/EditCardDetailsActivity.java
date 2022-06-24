@@ -35,6 +35,14 @@ public class EditCardDetailsActivity extends AppCompatActivity {
         button = findViewById(R.id.btn_done);
         button.setOnClickListener(addUpdateListener);
         repository = new MainRepository(this);
+        cardModel = (CardModel) getIntent().getSerializableExtra("model");
+        if(cardModel != null){
+            isUpdate = true;
+            button.setText("Update");
+            titleET.setText(cardModel.getCardTitle());
+            descriptionET.setText(cardModel.getCardContent());
+            tagET.setText(cardModel.getCardTag());
+        }
 
 
     }

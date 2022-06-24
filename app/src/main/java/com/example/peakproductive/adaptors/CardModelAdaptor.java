@@ -1,14 +1,17 @@
 package com.example.peakproductive.adaptors;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.peakproductive.EditCardDetailsActivity;
 import com.example.peakproductive.R;
 import com.example.peakproductive.models.CardModel;
 
@@ -40,6 +43,11 @@ public class CardModelAdaptor extends RecyclerView.Adapter<CardModelAdaptor.View
         holder.titleView.setText(cardList.get(position).getCardTitle());
         holder.descriptionView.setText(cardList.get(position).getCardContent());
         holder.tag.setText(cardList.get(position).getCardTag());
+        holder.updateBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(context, EditCardDetailsActivity.class);
+            intent.putExtra("model",cardList.get(position));
+            context.startActivity(intent);
+        });
     }
 
 
@@ -51,12 +59,14 @@ public class CardModelAdaptor extends RecyclerView.Adapter<CardModelAdaptor.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView titleView, descriptionView, tag;
+        ImageButton updateBtn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             titleView = itemView.findViewById(R.id.card_title);
             descriptionView = itemView.findViewById(R.id.card_description);
             tag = itemView.findViewById(R.id.card_tag);
+            updateBtn = itemView.findViewById(R.id.btn_updateCard);
 
 
         }
