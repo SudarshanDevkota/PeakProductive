@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.example.peakproductive.R;
 import com.example.peakproductive.adaptors.CardModelAdaptor;
 
 import com.example.peakproductive.models.CardModel;
+import com.example.peakproductive.repo.MainRepository;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
@@ -31,6 +33,8 @@ public class CardFragment extends Fragment {
     private static ArrayList<CardModel> cardList;
     private CardModelAdaptor adapter;
     private FloatingActionButton addBtn;
+    ViewPager2 viewPager ;
+    MainRepository mainRepository;
 
 
 
@@ -41,10 +45,18 @@ public class CardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_card, container, false);
         addBtn = view.findViewById(R.id.btn_addCard);
         addBtn.setOnClickListener(addCard);
+        viewPager = view.findViewById(R.id.viewpager);
+        cardList = new ArrayList<>();
+        adapter = new CardModelAdaptor(getContext(),cardList);
+        viewPager.setAdapter(adapter);
+        mainRepository = new MainRepository(getActivity());
 
-
-
-
+        mainRepository.getAllFlashCards().observe(getActivity(),cardModels -> {
+            cardList = (ArrayList<CardModel>) cardModels;
+            adapter = new CardModelAdaptor(getActivity(),cardList);
+            viewPager.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        });
 
         return view;
     }
