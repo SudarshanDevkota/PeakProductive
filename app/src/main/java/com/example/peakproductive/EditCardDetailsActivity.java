@@ -20,7 +20,7 @@ import com.example.peakproductive.repo.MainRepository;
 
 public class EditCardDetailsActivity extends AppCompatActivity {
         EditText titleET,descriptionET,tagET;
-        Button button;
+        Button buttonAU,btnDelete;
         boolean isUpdate=false;
         CardModel cardModel;
         MainRepository repository;
@@ -32,16 +32,22 @@ public class EditCardDetailsActivity extends AppCompatActivity {
         titleET = findViewById(R.id.edit_cardTitle);
         descriptionET = findViewById(R.id.edit_cardDescription);
         tagET = findViewById(R.id.edit_cardTag);
-        button = findViewById(R.id.btn_done);
-        button.setOnClickListener(addUpdateListener);
+        buttonAU = findViewById(R.id.btn_done);
+        buttonAU.setOnClickListener(addUpdateListener);
         repository = new MainRepository(this);
+        btnDelete = findViewById(R.id.btn_deleteFlashCard);
+        btnDelete.setVisibility(View.INVISIBLE);
+        btnDelete.setOnClickListener(deleteListener);
+
         cardModel = (CardModel) getIntent().getSerializableExtra("model");
         if(cardModel != null){
             isUpdate = true;
-            button.setText("Update");
+            buttonAU.setText("Update");
             titleET.setText(cardModel.getCardTitle());
             descriptionET.setText(cardModel.getCardContent());
             tagET.setText(cardModel.getCardTag());
+            btnDelete.setVisibility(View.VISIBLE);
+
         }
 
 
@@ -70,5 +76,9 @@ public class EditCardDetailsActivity extends AppCompatActivity {
         }else{
             Toast.makeText(this, "Empty Title or Description", Toast.LENGTH_SHORT).show();
         }
+    };
+    View.OnClickListener deleteListener = v->{
+      repository.deleteFlashCard(cardModel);
+      finish();
     };
 }
