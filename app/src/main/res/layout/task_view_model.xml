@@ -4,40 +4,39 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
+    android:background="@drawable/priority_drawable"
     app:cardCornerRadius="10dp"
-    app:cardElevation="5dp"
-    android:background="@drawable/priority_drawable">
+    app:cardElevation="5dp">
 
     <LinearLayout
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:background="@drawable/priority_drawable">
+        android:background="@drawable/priority_drawable"
+        android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/check_box"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:buttonTint="?attr/colorPrimary"
-                android:layout_weight="0"
-                android:checked="true" />
+        <CheckBox
+            android:id="@+id/check_box"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:layout_weight="0"
+            android:buttonTint="?attr/colorPrimary"
+            android:checked="true" />
 
-            <TextView
-                android:id="@+id/task_content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:minHeight="70dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:padding="3dp"
-                android:text="@string/nav_task"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="18sp" />
-        </LinearLayout>
-
+        <TextView
+            android:id="@+id/task_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:minHeight="70dp"
+            android:padding="3dp"
+            android:text="@string/nav_task"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="18sp" />
+    </LinearLayout>
 
 
 </androidx.cardview.widget.CardView>

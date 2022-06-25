@@ -1,25 +1,20 @@
 package com.example.peakproductive;
 
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
-
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.peakproductive.models.CardModel;
 import com.example.peakproductive.repo.MainRepository;
 
 
 public class EditCardDetailsActivity extends AppCompatActivity {
-        EditText titleET,descriptionET,tagET;
+        EditText titleET,descriptionET;
         Button buttonAU,btnDelete;
         boolean isUpdate=false;
         CardModel cardModel;
@@ -31,7 +26,6 @@ public class EditCardDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_card_details);
         titleET = findViewById(R.id.edit_cardTitle);
         descriptionET = findViewById(R.id.edit_cardDescription);
-        tagET = findViewById(R.id.edit_cardTag);
         buttonAU = findViewById(R.id.btn_done);
         buttonAU.setOnClickListener(addUpdateListener);
         repository = new MainRepository(this);
@@ -42,10 +36,9 @@ public class EditCardDetailsActivity extends AppCompatActivity {
         cardModel = (CardModel) getIntent().getSerializableExtra("model");
         if(cardModel != null){
             isUpdate = true;
-            buttonAU.setText("Update");
+            buttonAU.setText(getResources().getString(R.string.update_text));
             titleET.setText(cardModel.getCardTitle());
             descriptionET.setText(cardModel.getCardContent());
-            tagET.setText(cardModel.getCardTag());
             btnDelete.setVisibility(View.VISIBLE);
 
         }
@@ -56,7 +49,6 @@ public class EditCardDetailsActivity extends AppCompatActivity {
     View.OnClickListener addUpdateListener = v->{
         String title = titleET.getText().toString();
         String content = descriptionET.getText().toString();
-        String tag = tagET.getText().toString();
 
         if(!title.isEmpty() && !content.isEmpty()){
             if(cardModel == null){
@@ -64,7 +56,6 @@ public class EditCardDetailsActivity extends AppCompatActivity {
             }
             cardModel.setTitle(title);
             cardModel.setContent(content);
-            cardModel.setCardTag(tag);
             if(isUpdate){
                 repository.updateFlashCard(cardModel);
             }else{

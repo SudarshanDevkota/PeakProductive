@@ -42,7 +42,6 @@ public class CardModelAdaptor extends RecyclerView.Adapter<CardModelAdaptor.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.titleView.setText(cardList.get(position).getCardTitle());
         holder.descriptionView.setText(cardList.get(position).getCardContent());
-        holder.tag.setText(cardList.get(position).getCardTag());
         holder.updateBtn.setOnClickListener(view -> {
             Intent intent = new Intent(context, EditCardDetailsActivity.class);
             intent.putExtra("model",cardList.get(position));
@@ -65,7 +64,7 @@ public class CardModelAdaptor extends RecyclerView.Adapter<CardModelAdaptor.View
             super(itemView);
             titleView = itemView.findViewById(R.id.card_title);
             descriptionView = itemView.findViewById(R.id.card_description);
-            tag = itemView.findViewById(R.id.card_tag);
+
             updateBtn = itemView.findViewById(R.id.btn_updateCard);
 
 
