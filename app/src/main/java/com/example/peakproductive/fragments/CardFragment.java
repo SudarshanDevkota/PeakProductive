@@ -38,13 +38,7 @@ public class CardFragment extends Fragment {
         adapter = new CardModelAdaptor(getContext(), cardList);
         viewPager.setAdapter(adapter);
         mainRepository = new MainRepository(getActivity());
-
-        mainRepository.getAllFlashCards().observe(getActivity(), cardModels -> {
-            cardList = (ArrayList<CardModel>) cardModels;
-            adapter = new CardModelAdaptor(getActivity(), cardList);
-            viewPager.setAdapter(adapter);
-            adapter.notifyItemInserted(cardList.size()-1);
-        });
+        getAllCards();
 
         return view;
     }
@@ -55,7 +49,14 @@ public class CardFragment extends Fragment {
 
 
     };
-
+    private void getAllCards(){
+        mainRepository.getAllFlashCards().observe(getActivity(), cardModels -> {
+            cardList = (ArrayList<CardModel>) cardModels;
+            adapter = new CardModelAdaptor(getActivity(), cardList);
+            viewPager.setAdapter(adapter);
+            adapter.notifyItemInserted(cardList.size()-1);
+        });
+    }
 
     //    private ArrayList<CardModel> generateSimpleList() {
 //        cardList = new ArrayList<>();

@@ -57,13 +57,17 @@ public class TaskFragment extends Fragment implements TaskModelAdaptor.CheckboxL
         taskList = new ArrayList<>();
         adapter = new TaskModelAdaptor(getActivity(), taskList, this);
         taskRecyclerView.setAdapter(adapter);
+        getAllTasks();
+        return view;
+    }
+
+    private void getAllTasks() {
         mainRepository.getAllTask().observe(getActivity(), taskModels -> {
             taskList = (ArrayList<TaskModel>) taskModels;
             adapter = new TaskModelAdaptor(getActivity(), taskList, this);
             taskRecyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         });
-        return view;
     }
 
     View.OnClickListener add = v -> {
